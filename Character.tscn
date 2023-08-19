@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5n0bxxss5v8q"]
+
+[ext_resource type="Script" path="res://Character.gd" id="1_b4nv7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d50pj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ysfw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_18rpv"]
+albedo_color = Color(0, 1, 1, 1)
+
+[node name="Character" type="Node3D"]
+script = ExtResource("1_b4nv7")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+input_ray_pickable = false
+lock_rotation = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_d50pj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D/CollisionShape3D"]
+mesh = SubResource("BoxMesh_5ysfw")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_18rpv")
+
+[node name="Camera3D" type="Camera3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2, 3)
+
+[node name="RayCast3D" type="RayCast3D" parent="RigidBody3D"]
+target_position = Vector3(0, -0.7, 0)
